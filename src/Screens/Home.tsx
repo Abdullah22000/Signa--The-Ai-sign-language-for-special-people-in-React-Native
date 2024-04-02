@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Text, Pressable } from 'react-native';
+import { View, ScrollView, StyleSheet, Text, Pressable, ImageBackground } from 'react-native';
 import { Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
@@ -17,8 +17,8 @@ const Home = () => {
     return (
       <View style={styles.header}>
         <Image
-          source={require('../assets/ai.jpg')}
-          style={{ width: 410, height: 250, borderBottomLeftRadius: 10, borderBottomRightRadius: 10 }}
+          source={require('../assets/header.jpg')}
+          style={{ width:400, height: 150, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,marginTop:120 }}
         />
       </View>
     );
@@ -34,49 +34,50 @@ const Home = () => {
     return (
       <ScrollView contentContainerStyle={styles.boxescontainer}>
         <Pressable onPress={goToAlphabets} style={styles.box}>
-          <View style={styles.inner}>
+          <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
             <Text style={styles.cardDescription}>ALPHABETS</Text>
-          </View>
+          </ImageBackground>
         </Pressable>
         <Pressable onPress={goToNumbers} style={styles.box}>
-          <View style={styles.inner}>
+          <ImageBackground source={require('../assets/two.jpg')} style={styles.inner2}>
             <Text style={styles.cardDescription}>NUMBER</Text>
-          </View>
+          </ImageBackground>
+          
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
-          <View style={styles.inner}>
-            <Text style={styles.cardDescription}>ALLAH</Text>
-          </View>
+          <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
+            <Text style={styles.cardDescription}>ALPHABETS</Text>
+          </ImageBackground>
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
-          <View style={styles.inner}>
-            <Text style={styles.cardDescription}>ALLAH</Text>
-          </View>
+         <ImageBackground source={require('../assets/two.jpg')} style={styles.inner2}>
+            <Text style={styles.cardDescription}>NUMBER</Text>
+          </ImageBackground>
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
-          <View style={styles.inner}>
-            <Text style={styles.cardDescription}>ALLAH</Text>
-          </View>
+         <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
+            <Text style={styles.cardDescription}>ALPHABETS</Text>
+          </ImageBackground>
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
-          <View style={styles.inner}>
-            <Text style={styles.cardDescription}>ALLAH</Text>
-          </View>
+         <ImageBackground source={require('../assets/two.jpg')} style={styles.inner2}>
+            <Text style={styles.cardDescription}>NUMBER</Text>
+          </ImageBackground>
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
-          <View style={styles.inner}>
-            <Text style={styles.cardDescription}>ALLAH</Text>
-          </View>
+         <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
+            <Text style={styles.cardDescription}>ALPHABETS</Text>
+          </ImageBackground>
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
-          <View style={styles.inner}>
-            <Text style={styles.cardDescription}>ALLAH</Text>
-          </View>
+         <ImageBackground source={require('../assets/two.jpg')} style={styles.inner2}>
+            <Text style={styles.cardDescription}>NUMBER</Text>
+          </ImageBackground>
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
-          <View style={styles.inner}>
-            <Text style={styles.cardDescription}>ALLAH</Text>
-          </View>
+         <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
+            <Text style={styles.cardDescription}>ALPHABETS</Text>
+          </ImageBackground>
         </Pressable>
       </ScrollView>
     );
@@ -116,17 +117,26 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 15,
   },
-  inner: {
+  inner1: {
     flex: 1,
     fontWeight: 'bold',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
     fontSize: 16,
     backgroundColor: 'pink',
   },
+  inner2: {
+    flex: 1,
+    fontWeight: 'bold',
+    alignItems: 'flex-start',
+    justifyContent: 'flex-end',
+  },
   cardDescription: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    fontSize:24,
+    fontWeight:"900",
+    marginLeft:10,
+    marginBottom:20,
+    color:"white"
   },
 });
 

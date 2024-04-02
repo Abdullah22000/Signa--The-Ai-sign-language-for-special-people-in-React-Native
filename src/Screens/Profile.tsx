@@ -17,7 +17,6 @@ const Profile = () => {
           <View style={styles.propicArea}>
             <Image source={profile_Picture} style={styles.propic}/>
           </View>
-            <Text style={styles.name}>Abdullah Fayyaz Rana</Text>
         </View>
 
         <TouchableOpacity style={styles.buttonSection} activeOpacity={0.9}>

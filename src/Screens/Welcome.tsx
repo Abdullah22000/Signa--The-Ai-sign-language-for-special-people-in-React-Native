@@ -17,7 +17,7 @@ const Welcome: React.FC<WelcomeProps> = ({ navigation }) => {
 
      <TouchableOpacity style={styles.touch}
       onPress={()=>{
-        navigation.navigate("Tabs")
+        navigation.navigate("Login")
       }}
       >
       <Text style={{fontSize:18, color:"#fff", fontWeight:"700"}}>Let's GO</Text>

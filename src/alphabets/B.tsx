@@ -9,7 +9,7 @@ interface Option {
   correct: boolean;
 }
 
-const A = () => {
+const B = () => {
   const navigation = useNavigation();
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
@@ -44,7 +44,7 @@ const A = () => {
         </TouchableOpacity>
         <TouchableOpacity 
         onPress={() => {
-          navigation.navigate('B')
+          //navigation.navigate('Alphabets')
         }}>
           <Image 
             source={require('../assets/arrow-right.png')}
@@ -59,7 +59,7 @@ const A = () => {
     <View style={styles.container}>
       <Header/>
       <View>
-        <Image source={require('../assets/az/B.jpg')} 
+        <Image source={require('../assets/az/C.jpg')} 
           style={{height:"55%",width:"80%", marginTop:80, marginLeft:45}}            
         />
       </View>
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default A;
+export default B;

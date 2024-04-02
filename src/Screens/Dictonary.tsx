@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, FlatList, Text } from 'react-native';
-import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Image } from 'react-native-elements';
 

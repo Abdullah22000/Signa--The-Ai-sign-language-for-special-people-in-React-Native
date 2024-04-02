@@ -14,6 +14,9 @@ import Setting from './Screens/Setting';
 import Welcome from './Screens/Welcome';
 import A from './alphabets/A';
 import { createStackNavigator } from '@react-navigation/stack';
+import B from './alphabets/B';
+import Login from './Screens/Login';
+import SignUp from './Screens/SignUp';
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -127,10 +130,13 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator screenOptions={{headerShown: false}}>
         <Stack.Screen name='Welcome' component={Welcome}/>
+        <Stack.Screen name='Login' component={Login}/>
+        <Stack.Screen name='SignUp' component={SignUp}/>
         <Stack.Screen name='Tabs' component={Tabs}/>
         <Stack.Screen name='Alphabets' component={Alphabets}/>
         <Stack.Screen name='Numbers' component={Numbers}/>
         <Stack.Screen name='A' component={A}/>
+        <Stack.Screen name='B' component={B}/>
       </Stack.Navigator>
     </NavigationContainer>
   );
