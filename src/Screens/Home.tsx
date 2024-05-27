@@ -1,34 +1,47 @@
 import React from 'react';
-import { View, ScrollView, StyleSheet, Text, Pressable, ImageBackground } from 'react-native';
-import { Image } from 'react-native-elements';
+import { View, ScrollView, StyleSheet, Text, Pressable, ImageBackground, Alert } from 'react-native';
+import { Button, Image } from 'react-native-elements';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import { useNavigation } from '@react-navigation/native';
 import Alphabets from './Alphabets';
-import App from '../App';
-import A from '../alphabets/A';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import Numbers from './Numbers';
+import { removeToken } from '../components/AsynStorage';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 
 const Home = () => { 
   const navigation = useNavigation();
-  const Stack = createStackNavigator();
 
   const Header = () => {
+    // const handleLogout = async () => {
+  
+    //   await removeToken()
+    //   navigation.navigate('Login')
+    //   Alert.alert("Logout")
+    // };
     return (
-      <View style={styles.header}>
-        <Image
-          source={require('../assets/header.jpg')}
-          style={{ width:400, height: 150, borderBottomLeftRadius: 10, borderBottomRightRadius: 10,marginTop:120 }}
-        />
-      </View>
-    );
-  };
+    <View style={styles.header}>
+       {/* <View style={{ padding: 10 ,marginStart:280}}>
+        <TouchableOpacity style={{borderRadius:5, borderColor:"white",borderWidth:1}} onPress={handleLogout}>
+          <Text style={{fontWeight:'bold',color:'#FFFFEE',padding:3}}>LogOut</Text>
+        </TouchableOpacity>
+      </View> */}
+    <Image
+      source={require('../assets/header.jpg')}
+      style={{ width:400, height: 150,marginLeft:30 }}
+    />
+  </View>
+    )};
   const goToAlphabets = () => {
     navigation.navigate('Alphabets');
   };
   const goToNumbers = () => {
     navigation.navigate('Numbers');
   };
+  const goToBasicGesture = () =>{
+    navigation.navigate('BasicGesture')
+  }
 
   const Boxes = () => {
     return (
@@ -44,39 +57,14 @@ const Home = () => {
           </ImageBackground>
           
         </Pressable>
-        <Pressable onPress={Alphabets} style={styles.box}>
+        <Pressable onPress={goToBasicGesture} style={styles.box}>
           <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
-            <Text style={styles.cardDescription}>ALPHABETS</Text>
+            <Text style={styles.cardDescription}>BASIC GESTURES</Text>
           </ImageBackground>
         </Pressable>
         <Pressable onPress={Alphabets} style={styles.box}>
          <ImageBackground source={require('../assets/two.jpg')} style={styles.inner2}>
-            <Text style={styles.cardDescription}>NUMBER</Text>
-          </ImageBackground>
-        </Pressable>
-        <Pressable onPress={Alphabets} style={styles.box}>
-         <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
-            <Text style={styles.cardDescription}>ALPHABETS</Text>
-          </ImageBackground>
-        </Pressable>
-        <Pressable onPress={Alphabets} style={styles.box}>
-         <ImageBackground source={require('../assets/two.jpg')} style={styles.inner2}>
-            <Text style={styles.cardDescription}>NUMBER</Text>
-          </ImageBackground>
-        </Pressable>
-        <Pressable onPress={Alphabets} style={styles.box}>
-         <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
-            <Text style={styles.cardDescription}>ALPHABETS</Text>
-          </ImageBackground>
-        </Pressable>
-        <Pressable onPress={Alphabets} style={styles.box}>
-         <ImageBackground source={require('../assets/two.jpg')} style={styles.inner2}>
-            <Text style={styles.cardDescription}>NUMBER</Text>
-          </ImageBackground>
-        </Pressable>
-        <Pressable onPress={Alphabets} style={styles.box}>
-         <ImageBackground source={require('../assets/one.jpg')} style={styles.inner1}>
-            <Text style={styles.cardDescription}>ALPHABETS</Text>
+            <Text style={styles.cardDescription}>TRAIN WITH AI</Text>
           </ImageBackground>
         </Pressable>
       </ScrollView>
@@ -86,7 +74,9 @@ const Home = () => {
   return (
     <SafeAreaView>
     <Header />
+    <ScrollView>
     <Boxes />
+    </ScrollView>
   </SafeAreaView>
  
   );

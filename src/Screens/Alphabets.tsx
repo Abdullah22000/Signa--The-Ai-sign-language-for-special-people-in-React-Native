@@ -1,87 +1,145 @@
 import React, { useState } from 'react';
 import { Text, View, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import Snackbar from 'react-native-snackbar';
+import { Button } from 'react-native-elements';
 
-interface Option {
-  id: number;
-  text: string;
-  correct: boolean;
-}
 
-const Alphabets = () => {
+const Alphabets= () => {
   const navigation = useNavigation();
-  const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
 
-  const options: Option[] = [
-    { id: 1, text: 'A', correct: true }, // This option is correct
-    { id: 2, text: 'B', correct: false },
-  ];
-
-  const handleOptionPress = (option: Option) => {
-    setSelectedOption(option);
-    if (option.correct) {
-      Snackbar.show({
-        text: 'Correct!',
-        duration: 3000, // Show for 3 seconds
-      });
-    } else {
-      Snackbar.show({
-        text: 'Incorrect. Try again!',
-        duration: 3000, // Show for 3 seconds
-      });
-    }
+  const handlePress = (image: string) => {
+    setSelectedImage(image);
   };
-
-  const Header = () => {
-    return (
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Image 
-            source={require('../assets/left-back.png')}
-            style={{width:40,height:40, margin:10}}
-          />
-        </TouchableOpacity>
-        <TouchableOpacity 
-        onPress={() => {
-          navigation.navigate('A')
-        }}>
-          <Image 
-            source={require('../assets/arrow-right.png')}
-            style={{width:40,height:40, margin:10}}
-          />
-        </TouchableOpacity>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.container}>
-      <Header/>
-      <View>
-        <Image source={require('../assets/az/A.jpg')} 
-          style={{height:"55%",width:"80%", marginTop:80, marginLeft:45}}            
-        />
-      </View>
-      <View>
-        <Text style={{fontSize:22, marginLeft:20,fontWeight:"900" }}>
-          Select the correct Answer?
-        </Text>
-      </View>
-      <View style={styles.buttonAB}>
-        {options.map(option => (
-          <TouchableOpacity 
-            key={option.id}
-            style={[
-              styles.button,
-              selectedOption === option && styles.selectedButton,
-            ]}
-            onPress={() => handleOptionPress(option)}
-            disabled={selectedOption !== null}
-          >
-            <Text style={{fontSize:25,fontWeight:"900"}}>{option.text}</Text>
-          </TouchableOpacity>
-        ))}
+      <View style={styles.keyboard}>
+        {selectedImage && (
+          <Image
+          source={
+            selectedImage === 'A'
+              ? require('../assets/az/A.jpg')
+              : selectedImage === 'B'
+              ? require('../assets/az/B.jpg')
+              : selectedImage === 'C'
+              ? require('../assets/az/C.jpg')
+              : selectedImage === 'D'
+              ? require('../assets/az/D.jpg')
+              : selectedImage === 'E'
+              ? require('../assets/az/E.jpg')
+              : selectedImage === 'F'
+              ? require('../assets/az/F.jpg')
+              : selectedImage === 'G'
+              ? require('../assets/az/G.jpg')
+              : selectedImage === 'H'
+              ? require('../assets/az/H.jpg')
+              : selectedImage === 'I'
+              ? require('../assets/az/I.jpg')
+              : selectedImage === 'J'
+              ? require('../assets/az/J.jpg')
+              : selectedImage === 'K'
+              ? require('../assets/az/K.jpg')
+              : selectedImage === 'L'
+              ? require('../assets/az/L.jpg')
+              : selectedImage === 'M'
+              ? require('../assets/az/M.jpg')
+              : selectedImage === 'N'
+              ? require('../assets/az/N.jpg')
+              : selectedImage === 'O'
+              ? require('../assets/az/O.jpg')
+              : selectedImage === 'P'
+              ? require('../assets/az/P.jpg')
+              : selectedImage === 'Q'
+              ? require('../assets/az/Q.jpg')
+              : selectedImage === 'R'
+              ? require('../assets/az/R.jpg')
+              : selectedImage === 'S'
+              ? require('../assets/az/S.jpg')
+              : selectedImage === 'T'
+              ? require('../assets/az/T.jpg')
+              : selectedImage === 'U'
+              ? require('../assets/az/U.jpg')
+              : selectedImage === 'V'
+              ? require('../assets/az/V.jpg')
+              : selectedImage === 'W'
+              ? require('../assets/az/W.jpg')
+              : selectedImage === 'X'
+              ? require('../assets/az/X.jpg')
+              : selectedImage === 'Y'
+              ? require('../assets/az/Y.jpg')
+              : require('../assets/az/Z.jpg')
+          }
+            style={styles.image}
+          />
+        )}
+         <View style={styles.buttonContainer}>
+          {/* Replace TouchableOpacity buttons with a flat array to handle dynamic rendering */}
+          {['A', 'B', 'C', 'D', 'E', 'F'].map((letter, index) => (
+            <TouchableOpacity
+              key={index} // Use a unique key for each button
+              style={styles.button}
+              onPress={() => handlePress(letter)}
+            >
+              <Text style={styles.buttonText}>{letter}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.buttonContainer}>
+          {/* Replace TouchableOpacity buttons with a flat array to handle dynamic rendering */}
+          {['G', 'H', 'I', 'J', 'K', 'L'].map((letter, index) => (
+            <TouchableOpacity
+              key={index} // Use a unique key for each button
+              style={styles.button}
+              onPress={() => handlePress(letter)}
+            >
+              <Text style={styles.buttonText}>{letter}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.buttonContainer}>
+          {/* Replace TouchableOpacity buttons with a flat array to handle dynamic rendering */}
+          {['M', 'N', 'O', 'P', 'Q', 'R'].map((letter, index) => (
+            <TouchableOpacity
+              key={index} // Use a unique key for each button
+              style={styles.button}
+              onPress={() => handlePress(letter)}
+            >
+              <Text style={styles.buttonText}>{letter}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.buttonContainer}>
+          {/* Replace TouchableOpacity buttons with a flat array to handle dynamic rendering */}
+          {['S', 'T', 'U', 'V', 'W', 'X'].map((letter, index) => (
+            <TouchableOpacity
+              key={index} // Use a unique key for each button
+              style={styles.button}
+              onPress={() => handlePress(letter)}
+            >
+              <Text style={styles.buttonText}>{letter}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+        <View style={styles.buttonContainer}>
+          {/* Replace TouchableOpacity buttons with a flat array to handle dynamic rendering */}
+          {['Y', 'Z'].map((letter, index) => (
+            <TouchableOpacity
+              key={index} // Use a unique key for each button
+              style={styles.button}
+              onPress={() => handlePress(letter)}
+            >
+              <Text style={styles.buttonText}>{letter}</Text>
+            </TouchableOpacity>
+          ))}
+         <TouchableOpacity
+              style={styles.buttonQ}
+              onPress={() =>{navigation.navigate('A')}}
+            >
+              <Text style={styles.buttonTextQ}>Quiz</Text>
+            </TouchableOpacity>
+        </View>        
+
       </View>
     </View>
   );
@@ -89,32 +147,62 @@ const Alphabets = () => {
 
 const styles = StyleSheet.create({
   container: {
-    alignContent:"center",
+    flex: 1,
+    backgroundColor: 'black',
   },
   header: {
     width: '100%',
-    height: '7%',
+    height: 50,
     backgroundColor: 'yellow',
     flexDirection: 'row', // Align buttons horizontally
     justifyContent: 'space-between', // Space out buttons evenly
     alignItems: 'center', // Center buttons vertically
   },
+  buttonContainer: {
+    flexDirection: 'row', // Align buttons horizontally
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 0,
+  },
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#16419e',
     padding: 10,
     margin: 5,
-    height:50,
-    width:150,
+    height: 50,
+    width: 50,
+    borderRadius: 15,
   },
-  selectedButton: {
-    backgroundColor: 'green', // Color for the correct option
+  buttonQ: {
+    alignItems: 'center',
+    backgroundColor: '#ba0202',
+    padding: 10,
+    margin: 5,
+    height: 50,
+    width: 90,
+    borderRadius: 15,
   },
-  buttonAB:{
-    flexDirection:"row",
-    margin:20,
-    marginLeft:30
-  }
+  buttonTextQ:{
+    color: '#FFFFEE',
+    fontSize: 20,
+    fontWeight: 'bold',
+  },
+  buttonText: {
+    color: '#FFFFEE',
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  keyboard: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  image: {
+    width: 230,
+    height: 250,
+    borderRadius: 10,
+    marginBottom: 20,
+  },
 });
 
 export default Alphabets;

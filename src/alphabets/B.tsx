@@ -14,8 +14,8 @@ const B = () => {
   const [selectedOption, setSelectedOption] = useState<Option | null>(null);
 
   const options: Option[] = [
-    { id: 1, text: 'A', correct: false }, 
-    { id: 2, text: 'B', correct: true }, // This option is correct
+    { id: 1, text: 'L', correct: false }, 
+    { id: 2, text: 'C', correct: true }, // This option is correct
   ];
 
   const handleOptionPress = (option: Option) => {
@@ -23,12 +23,26 @@ const B = () => {
     if (option.correct) {
       Snackbar.show({
         text: 'Correct!',
-        duration: 3000, // Show for 3 seconds
+        duration: 6000, // Show for 3 seconds
+        action: {
+          text: 'NEXT',
+          textColor: 'green',
+          onPress: () => {
+            navigation.navigate('C'); // Navigate to screen 'B'
+          },
+        },
       });
     } else {
       Snackbar.show({
-        text: 'Incorrect. Try again!',
-        duration: 3000, // Show for 3 seconds
+        text: 'Incorrect.',
+        duration: 6000, // Show for 3 seconds
+        action: {
+            text: 'Try Again',
+            textColor: 'green',
+            onPress: () => {
+              navigation.navigate('Alphbets'); // Navigate to screen 'B'
+            },
+          },
       });
     }
   };
@@ -38,7 +52,7 @@ const B = () => {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image 
-            source={require('../assets/left-back.png')}
+            source={require('../assets/left.png')}
             style={{width:40,height:40, margin:10}}
           />
         </TouchableOpacity>
@@ -57,7 +71,6 @@ const B = () => {
 
   return (
     <View style={styles.container}>
-      <Header/>
       <View>
         <Image source={require('../assets/az/C.jpg')} 
           style={{height:"55%",width:"80%", marginTop:80, marginLeft:45}}            
@@ -90,6 +103,8 @@ const B = () => {
 const styles = StyleSheet.create({
   container: {
     alignContent:"center",
+    backgroundColor:"black",
+    height:"100%"
   },
   header: {
     width: '100%',
@@ -101,7 +116,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#16419e',
     padding: 10,
     margin: 5,
     height:50,

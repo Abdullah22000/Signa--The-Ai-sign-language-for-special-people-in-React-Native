@@ -1,17 +1,14 @@
-import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React, { useState } from 'react'
-import { NavigationContainer, useNavigation } from '@react-navigation/native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Input } from 'react-native-elements';
+import { Button, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import {useNavigation } from '@react-navigation/native';
 import { TextInput } from 'react-native-gesture-handler';
+import { API_URL, useAuth } from '../components/AuthContext';
+import { Alert } from 'react-native';
+import {storeToken} from '../components/AsynStorage';
+
 
 const Login = () => {
 
-    const [ form, setForm] = useState({
-        email:'',
-        password:'',
-    });
-    
     const navigation = useNavigation();
     const Header = () => {
         return (
@@ -35,18 +32,59 @@ const Login = () => {
           </View>
         );
       }
+      const [email, setEmail] = useState('')
+      const [ username, setUsername] = useState('')
+      const [ password, setPassword] = useState('')
+      const { onLogin, onRegister} = useAuth()
+
+      const [error, setError] = useState<string | null>(null)
+      const handleSubmit = async () => {
+        try {
+          const response = await fetch('http://192.168.43.41:8000/api/v1.0/user/login-user/', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: `username=${username}&password=${password}`
+          })
+
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          
+          const data = await response.json()
+          console.log(data)
+    
+          if (data) {
+            // Handle successful login
+            // await storeToken(data.token)
+            console.log('Login successful')
+            Alert.alert("Welcome","Your are Logged In")
+            navigation.navigate('Tabs')
+            // login();
+          } else {
+            setError(data.error)
+          }
+        } catch (error) {
+          setError('An error occurred')
+        }
+      }
+      
+      
+
   return (
     <View style={{flex:1,backgroundColor:"black"}}>
       <Header/>
       <View style={styles.container}>
-        <View style={styles.headertitle} >
+        <View style={styles.headerimg} >
             <Image
                 source={require('../assets/profile/profile.png')}
                 style={styles.headerImg}
             />
-            <Text style={styles.headertitle}>Sign in to SIGNA</Text>
-
-            <Text style={styles.subtitle}>Get access to your SIGNA and more</Text>
+        </View>
+        <View style={{margin:12}}>
+          <Text style={styles.headertitle}>Sign in to SIGNA</Text>
+          <Text style={styles.subtitle}>Get access to your SIGNA and more</Text>
         </View>
         <View >
             <View style={styles.input}>
@@ -59,8 +97,10 @@ const Login = () => {
                 style={styles.inputControl}
                 placeholder='abd@gmail.com'
                 placeholderTextColor="#6b7280"
-                value={form.email}
-                onChangeText={email => setForm({...form, email})}
+                value={username}
+                onChangeText={text => setUsername(text)}
+                // value={email}
+                // onChangeText={(text : string) => setEmail(text)}
                 />
             </View>
 
@@ -73,30 +113,23 @@ const Login = () => {
                 style={styles.inputControl}
                 placeholder='***********'
                 placeholderTextColor="#6b7280"
-                value={form.password}
-                onChangeText={ password => setForm({...form, password})}
+                // value={password}
+                // onChangeText={ (text : string) => setPassword(text)}
+                secureTextEntry={true}
+                value={password}
+                onChangeText={text => setPassword(text)}
                 />
             </View>
 
-            <View>
-                <TouchableOpacity>
-                    <View style={styles.btn}>
-                        <Text style={styles.btnText}>Sign In</Text>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <TouchableOpacity
-              style={{margin:'auto'}}
-              onPress={()=>{
-                //handlePress
-              }}
-            >
-              </TouchableOpacity>
+            <TouchableOpacity onPress={handleSubmit} style={styles.touchable}>
+                <Text style={styles.buttonText}>Login</Text>
+            </TouchableOpacity>
+           
               <View style={{flexDirection:'row',justifyContent:"center"}}>
               <Text style={styles.formFooter}>Don't have a account? </Text>
                <TouchableOpacity 
                onPress={()=>navigation.navigate('SignUp')}> 
-                <Text style={{textDecorationLine:"underline",color:"white", fontSize:20,marginTop:16}}>Sign up</Text>
+                <Text style={{textDecorationLine:"underline",color:"#f567be", fontWeight:"bold",fontSize:20,marginTop:16}}>Sign up</Text>
                </TouchableOpacity>
               
               </View>
@@ -105,45 +138,6 @@ const Login = () => {
         <View style={{alignItems:'center'}}>
           <View style={{ width: '100%',height: 1,backgroundColor:'grey',marginTop:10}}>
           </View>
-            <View style={{flexDirection:'row'}}>
-            <TouchableOpacity>
-              <View style={{
-                backgroundColor:"white",
-                borderRadius:8,
-                borderWidth:1,
-                flexDirection:'row',
-                alignItems:'center',
-                justifyContent:'center',
-                paddingVertical:10,
-                paddingHorizontal:20,
-                marginTop:15,
-                marginRight:10
-              }}>
-                  <Image
-                    source={require('../assets/google.png')}
-                    style={{width:40,height:40}}
-                  />
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity>
-              <View style={{
-                backgroundColor:"white",
-                borderRadius:8,
-                borderWidth:1,
-                flexDirection:'row',
-                alignItems:'center',
-                justifyContent:'center',
-                paddingVertical:10,
-                paddingHorizontal:20,
-                marginTop:15,
-              }}>
-                  <Image
-                    source={require('../assets/facebook.png')}
-                    style={{width:40,height:42}}
-                  />
-              </View>
-            </TouchableOpacity>
-            </View>
         </View>
       </View>  
     </View>
@@ -165,11 +159,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between', // Space out buttons evenly
         alignItems: 'center', // Center buttons vertically
       },
+      headerimg:{
+        marginLeft:45
+      },
       headertitle:{
-        marginVertical: 15,
+        alignSelf:"center",
+        marginLeft:5,
         color:"white",
         fontSize:25,
-        marginLeft:47,
         fontWeight:"600"
         
       },
@@ -233,6 +230,19 @@ const styles = StyleSheet.create({
         textAlign:'center',
         letterSpacing:0.15,
         marginTop:20
-      }
+      },
+    touchable: {
+        marginTop:15,
+        backgroundColor: '#007bff',
+        padding: 10,
+        borderRadius: 5,
+    },
+    buttonText: {
+        color: 'white',
+        textAlign: 'center',
+        fontSize: 16,
+    },
       
 })
+
+

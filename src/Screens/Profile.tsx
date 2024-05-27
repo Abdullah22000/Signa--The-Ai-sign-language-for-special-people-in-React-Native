@@ -1,130 +1,83 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Image } from 'react-native-elements';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-
-const profile_Picture = require('../assets/profile/profile.png');
-const account = require('../assets/profile/account.png');
-const help = require('../assets/profile/help.png');
-const logout = require('../assets/profile/logout.png');
-const notification = require('../assets/profile/notifi.png');
+import React from 'react';
+import { View, Text, Button, StyleSheet, Linking } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 const Profile = () => {
+  const navigation = useNavigation();
+
+  const handleClick = () => {
+    console.log('Button clicked');
+    Linking.openURL('http://192.168.18.122:8000/api/start_ai');
+  };
+
+  const secure = () => {
+    fetch('http://192.168.18.122:8000/api/start_ai')
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(JSON.stringify(data, null, 2));
+      })
+      .catch((error) => console.error('Error fetching data:', error));
+  };
+
   return (
     <View style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <View style={styles.topSection}>
-          <View style={styles.propicArea}>
-            <Image source={profile_Picture} style={styles.propic}/>
-          </View>
+      <View style={styles.contentContainer}>
+        <Text style={styles.heading}>
+          Explore the Best Learning Experience with {' '}
+          <Text style={styles.secureVisionText}>SIGNA</Text>
+        </Text>
+        <Text style={styles.body}>
+          Unleash the power of AI within. Upgrade your Sign Language Skill 
+          with SIGNA.
+        </Text>
+        <Button title="Get started" onPress={handleClick} />
+        <View style={styles.Camera}>
+          <Button title="ImagePicker" onPress={() => navigation.navigate('ImagePicker')} />
         </View>
-
-        <TouchableOpacity style={styles.buttonSection} activeOpacity={0.9}>
-          <View style={styles.buttonArea}>
-            <View style={styles.iconArea}>
-            <Image source={account} style={styles.iconStyle}/>
-          </View>
-            <Text style={styles.buttonName}>Account</Text>
-        </View>
-        <View style={styles.sp}></View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonSection} activeOpacity={0.9}>
-          <View style={styles.buttonArea}>
-            <View style={styles.iconArea}>
-            <Image source={notification} style={styles.iconStyle}/>
-          </View>
-            <Text style={styles.buttonName}>Notification</Text>
-        </View>
-        <View style={styles.sp}></View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonSection} activeOpacity={0.9}>
-          <View style={styles.buttonArea}>
-            <View style={styles.iconArea}>
-            <Image source={help} style={styles.iconStyle}/>
-          </View>
-            <Text style={styles.buttonName}>Help</Text>
-        </View>
-        <View style={styles.sp}></View>
-        </TouchableOpacity>
-
-        <TouchableOpacity style={styles.buttonSection} activeOpacity={0.9}>
-          <View style={styles.buttonArea}>
-            <View style={styles.iconArea}>
-            <Image source={logout} style={styles.iconStyle}/>
-          </View>
-            <Text style={styles.buttonName}>LogOut</Text>
-        </View>
-        <View style={styles.sp}></View>
-        </TouchableOpacity>
-
-      </SafeAreaView>
+      </View>
     </View>
-  )
-}
-
-export default Profile
+  );
+};
 
 const styles = StyleSheet.create({
-  container:{
-    flex:1,
-    backgroundColor:'black'
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+    backgroundColor: 'black'
   },
-  safeArea:{
-    flex:1
+  contentContainer: {
+    alignItems: 'center',
+    marginBottom: 20,
   },
-  topSection:{
-      height:300,
-      justifyContent:"center",
-      alignItems:'center'
+  heading: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
   },
-  propicArea:{
-      width:180,
-      height:180,
-      borderRadius: 100,
-      borderWidth:3,
-      borderColor:"red"  
+  secureVisionText: {
+    color: 'blue',
   },
-  propic:{
+  body: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  imageContainer: {
     width: '100%',
-    height: '100%'
+    alignItems: 'center',
   },
-  name:{
-    marginTop:20,
-    color:"white",
-    fontSize: 30
+  image: {
+    width: '80%',
+    height: 300,
+    resizeMode: 'contain',
   },
-  buttonSection:{
-    padding:15,
-    paddingLeft: 25,
-    paddingRight: 10
+  Camera: {
+    margin: 10,
+    paddingTop: 10,
   },
-  buttonArea:{
-    flexDirection: "row",
-    justifyContent:"center",
-    alignItems:"center"
-  },
-  iconArea:{
-    width:50,
-    height:50,
-    justifyContent:"center",
-    alignContent:"center",
-  },
-  iconStyle:{
-    width:"100%",
-    height:"100%"
-  },
-  buttonName:{
-    width: 300,
-    fontSize: 20,
-    color:"white",
-    marginLeft: 28,
-  },
-  sp:{
-    width:400,
-    marginTop:10,
-    height:0.5,
-    backgroundColor: '#FFFFFF90'
-  }
-})
+});
+
+export default Profile;

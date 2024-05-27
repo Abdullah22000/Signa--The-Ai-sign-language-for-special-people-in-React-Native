@@ -23,22 +23,35 @@ const A = () => {
     if (option.correct) {
       Snackbar.show({
         text: 'Correct!',
-        duration: 3000, // Show for 3 seconds
+        duration: 6000, // Show for 3 seconds
+        action: {
+          text: 'NEXT',
+          textColor: 'green',
+          onPress: () => {
+            navigation.navigate('B'); // Navigate to screen 'B'
+          },
+        },
       });
     } else {
       Snackbar.show({
-        text: 'Incorrect. Try again!',
-        duration: 3000, // Show for 3 seconds
+        text: 'Incorrect.',
+        duration: 6000, // Show for 3 seconds
+        action: {
+            text: 'Try Again',
+            textColor: 'green',
+            onPress: () => {
+              navigation.navigate('Alphbets'); // Navigate to screen 'B'
+            },
+          },
       });
     }
   };
-
   const Header = () => {
     return (
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Image 
-            source={require('../assets/left-back.png')}
+            source={require('../assets/left.png')}
             style={{width:40,height:40, margin:10}}
           />
         </TouchableOpacity>
@@ -57,7 +70,7 @@ const A = () => {
 
   return (
     <View style={styles.container}>
-      <Header/>
+      
       <View>
         <Image source={require('../assets/az/B.jpg')} 
           style={{height:"55%",width:"80%", marginTop:80, marginLeft:45}}            
@@ -90,6 +103,8 @@ const A = () => {
 const styles = StyleSheet.create({
   container: {
     alignContent:"center",
+    backgroundColor:"black",
+    height:"100%"
   },
   header: {
     width: '100%',
@@ -101,7 +116,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: 'center',
-    backgroundColor: '#DDDDDD',
+    backgroundColor: '#16419e',
     padding: 10,
     margin: 5,
     height:50,
